@@ -112,8 +112,26 @@ To compile every included mod from source, run this from the extracted folder:
 
   powershell -ExecutionPolicy Bypass -File .\build_all.ps1 -GameDir "C:\Program Files (x86)\Steam\steamapps\common\smt3hd"
 
+Requirements:
+
+  - SMT3 HD installed on Windows.
+  - MelonLoader installed for SMT3 HD.
+  - The game launched at least once with MelonLoader so dependency assemblies
+    exist under MelonLoader\net6\ and MelonLoader\Il2CppAssemblies\.
+  - .NET SDK 6 or newer.
+
+To compile one mod manually, run a command like:
+
+  "C:\Program Files\dotnet\dotnet.exe" build ".\source\PreyEyes2\PreyEyes2.csproj" -c Release /p:GameDir="C:\Program Files (x86)\Steam\steamapps\common\smt3hd"
+
 Each compiled DLL is written under that mod's source\<ModName>\bin\Release\net6.0\
 folder. Copy the desired DLL into Mods\ to install it manually.
+
+For review: the installer creates Mods\ if needed, installs MelonLoader v0.6.1
+only if version.dll is not already present, asks Y/N for each mod, copies the
+selected DLLs from _pack\ to Mods\, and copies Prey Eyes 2 icons from _pack\icons\
+to Mods\icons\ when Prey Eyes 2 is selected. It does not download payloads at
+install time. FramerateUnlock / the FPS delimiter is not included.
 
 ====================
 

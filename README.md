@@ -61,19 +61,61 @@ Requirements:
 - The game launched at least once with MelonLoader so dependency assemblies exist under `MelonLoader\net6\` and `MelonLoader\Il2CppAssemblies\`.
 - .NET SDK 6 or newer.
 
-Build every included mod from the repository root:
+These are standard C#/.NET MelonLoader mods. The source projects reference only the local MelonLoader assemblies and the IL2CPP assembly stubs generated for the local SMT3 HD install. The repository does not require any private SDK.
 
-```powershell
-.\build_all.ps1 -GameDir "C:\Program Files (x86)\Steam\steamapps\common\smt3hd"
-```
+1. Clone the repository:
 
-Build one mod manually:
+   ```powershell
+   git clone https://github.com/sevrlbats/SMT3HD-GameplayHacksAndTweaks.git
+   cd SMT3HD-GameplayHacksAndTweaks
+   ```
 
-```powershell
-& "C:\Program Files\dotnet\dotnet.exe" build ".\source\PreyEyes2\PreyEyes2.csproj" -c Release /p:GameDir="C:\Program Files (x86)\Steam\steamapps\common\smt3hd"
-```
+2. Confirm the game has generated the expected dependency folders:
+
+   ```text
+   C:\Program Files (x86)\Steam\steamapps\common\smt3hd\MelonLoader\net6\
+   C:\Program Files (x86)\Steam\steamapps\common\smt3hd\MelonLoader\Il2CppAssemblies\
+   ```
+
+3. Build every included mod from the repository root:
+
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File .\build_all.ps1 -GameDir "C:\Program Files (x86)\Steam\steamapps\common\smt3hd"
+   ```
+
+4. Or build one mod manually with `dotnet`:
+
+   ```powershell
+   & "C:\Program Files\dotnet\dotnet.exe" build ".\source\PreyEyes2\PreyEyes2.csproj" -c Release /p:GameDir="C:\Program Files (x86)\Steam\steamapps\common\smt3hd"
+   ```
 
 Each compiled DLL is written under that mod's `source\<ModName>\bin\Release\net6.0\` folder. To install a compiled DLL manually, copy it into the game's `Mods\` folder.
+
+For example, after building Prey Eyes 2:
+
+```text
+source\PreyEyes2\bin\Release\net6.0\PreyEyes2.dll
+```
+
+copy that DLL to:
+
+```text
+C:\Program Files (x86)\Steam\steamapps\common\smt3hd\Mods\PreyEyes2.dll
+```
+
+## Notes For Malware Review
+
+The release zip includes prebuilt DLLs in `_pack\` so normal players can install without compiling. The source for those DLLs is in `source\`.
+
+`install_modpack.bat` performs these actions:
+
+- Creates `Mods\` if needed.
+- Installs MelonLoader `0.6.1` if `version.dll` is not already present.
+- Prompts the user for each included mod.
+- Copies the selected DLLs from `_pack\` into `Mods\`.
+- Copies Prey Eyes 2 icon assets from `_pack\icons\` into `Mods\icons\` when Prey Eyes 2 is selected.
+
+The installer does not download payloads at install time. The old `FramerateUnlock` / FPS delimiter mod is intentionally not included.
 
 ## Repository Layout
 
