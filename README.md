@@ -2,19 +2,21 @@
 
 A pick-and-choose MelonLoader mod suite for **Shin Megami Tensei III: Nocturne HD Remaster**.
 
-The packaged installer asks about each mod independently, so players can install only the pieces they want. Version `2.3.5` adds keyboard arrow-key alternatives for the D-pad tweaks and makes BuffView readable at modern resolutions.
+The packaged installer asks about each mod independently, so players can install only the pieces they want. Version `2.3.6` adds a conflict-free alternate controller layout, keyboard arrow-key alternatives, and a BuffView that scales cleanly at modern resolutions.
 
 ## Included Mods
 
 | Mod | Function |
 | --- | --- |
 | Prey Eyes 2 | Adds a color-coded targeting reticle, affinity board, ailment resistance display, Cathedral of Shadows fusion-preview affinity display, and resolution-scaled START-toggle BuffView. |
-| SuspendSafe | Press R3 to write a suspend/quicksave without returning to the title screen. |
+| SuspendSafe | Press R3 to write a suspend/quicksave without returning to the title screen (F4 in the alternate layout). |
 | KeptSuspense | Keeps a suspend save available after loading it instead of consuming it permanently. |
 | QuickPass | Adds controller shortcuts in battle: R1 passes the current demon's turn, L1 attempts escape. |
-| MoonKing | Press D-pad Down or keyboard Down Arrow to toggle between Full Moon and New Moon. |
-| SafePassage | Press D-pad Up or keyboard Up Arrow to toggle random encounters on and off. |
+| MoonKing | Press D-pad Down or keyboard Down Arrow to toggle between Full Moon and New Moon (R3 or Down Arrow in the alternate layout). |
+| SafePassage | Press D-pad Up or keyboard Up Arrow to toggle random encounters on and off (L3 or Up Arrow in the alternate layout). |
 | SkipIntro | Skips the Atlus logos, intro movie, and Press Start screen. |
+
+Press F3 to toggle the alternate layout: SafePassage moves from D-pad Up to L3, MoonKing moves from D-pad Down to R3, and SuspendSafe moves from R3 to F4. Press F3 again to restore the default layout. This works with any subset of the three mods; the keyboard arrow bindings remain active in both layouts, and the layout resets when the game closes.
 
 ## Install
 

@@ -4,7 +4,7 @@ title sevrL_bats SMT3 HD Mod Pack Installer
 echo.
 echo  ============================================
 echo   sevrL_bats Mod Pack for SMT3 Nocturne HD
-echo   Gameplay Hacks and Tweaks V2.3.5
+echo   Gameplay Hacks and Tweaks V2.3.6
 echo  ============================================
 echo.
 
@@ -55,6 +55,7 @@ echo  ============================================
 echo.
 echo   Each mod is independent. Install any combination.
 echo   Type Y or N for each, then press Enter.
+echo   In game, F3 toggles the alternate keybind layout.
 echo.
 
 if not exist "Mods" mkdir Mods
@@ -83,6 +84,7 @@ echo  --------------------------------------------------
 echo   SUSPENDSAFE
 echo   Press R3 to quicksave into the suspend slot
 echo   without being kicked back to the title screen.
+echo   Alternate F3 layout: F4 quicksaves instead.
 echo  --------------------------------------------------
 set /p INSTALL_SS="  Install SuspendSafe? (Y/N): "
 if /i "!INSTALL_SS!"=="Y" (
@@ -127,6 +129,7 @@ echo.
 echo  --------------------------------------------------
 echo   MOONKING
 echo   D-pad Down or keyboard Down Arrow toggles moon phase.
+echo   Alternate F3 layout: R3 replaces D-pad Down.
 echo   No more waiting on mystic chests.
 echo  --------------------------------------------------
 set /p INSTALL_MK="  Install MoonKing? (Y/N): "
@@ -142,6 +145,7 @@ echo.
 echo  --------------------------------------------------
 echo   SAFEPASSAGE
 echo   D-pad Up or keyboard Up Arrow toggles encounters.
+echo   Alternate F3 layout: L3 replaces D-pad Up.
 echo  --------------------------------------------------
 set /p INSTALL_SP="  Install SafePassage? (Y/N): "
 if /i "!INSTALL_SP!"=="Y" (

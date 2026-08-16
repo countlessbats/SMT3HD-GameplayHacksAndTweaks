@@ -1,4 +1,4 @@
-SMT3HD GAMEPLAY HACKS AND TWEAKS V2.3.5
+SMT3HD GAMEPLAY HACKS AND TWEAKS V2.3.6
 for Shin Megami Tensei III: Nocturne HD Remaster
 by sevrL_bats
 
@@ -12,12 +12,13 @@ Each mod is independent. The installer asks about each one separately, so you
 can install only the pieces you want.
 
 ====================
- WHAT CHANGED IN V2.3.5
+ WHAT CHANGED IN V2.3.6
 ====================
 
-- Keyboard Up Arrow and Down Arrow are now additional bindings for SafePassage
-  and MoonKing. The original D-pad controls remain available.
-- BuffView is now twice as large at 1920x1080 and scales with monitor resolution.
+- F3 toggles an alternate controller layout: SafePassage moves from D-pad Up to
+  L3, MoonKing moves from D-pad Down to R3, and SuspendSafe moves from R3 to F4.
+- Keyboard Up/Down remain available for SafePassage/MoonKing in either layout.
+- BuffView is twice as large at 1920x1080 and scales with monitor resolution.
 
 ====================
  INCLUDED MODS
@@ -31,7 +32,7 @@ PREY EYES 2 v2.5.7
 
 SUSPENDSAFE
   Press R3 to quicksave into the suspend slot without being kicked back to the
-  title screen.
+  title screen. In the alternate F3 layout, press F4 instead.
 
 KEPTSUSPENSE
   Keep your suspend save file after loading it.
@@ -41,10 +42,17 @@ QUICKPASS
   L1 quick-attempts escape.
 
 MOONKING
-  D-pad Down or keyboard Down Arrow toggles Full/New Moon phase.
+  D-pad Down or keyboard Down Arrow toggles Full/New Moon phase. In the
+  alternate F3 layout, R3 replaces D-pad Down.
 
 SAFEPASSAGE
-  D-pad Up or keyboard Up Arrow toggles random encounters on/off.
+  D-pad Up or keyboard Up Arrow toggles random encounters on/off. In the
+  alternate F3 layout, L3 replaces D-pad Up.
+
+KEYBIND LAYOUT
+  Press F3 to toggle between the default and alternate layouts. This works with
+  any combination of SuspendSafe, MoonKing, and SafePassage. Press F3 again to
+  restore the defaults. The layout resets when the game closes.
 
 SKIPINTRO
   Skip Atlus logos, intro video, and the Press Start screen.

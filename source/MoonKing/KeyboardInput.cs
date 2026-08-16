@@ -7,10 +7,14 @@ namespace MoonKing
     internal static class KeyboardInput
     {
         private const int DownArrow = 274;
+        private const int F3 = 284;
         private static bool _resolved;
         private static MethodInfo? _getKeyDown;
 
-        internal static bool DownArrowPressed()
+        internal static bool DownArrowPressed() => KeyPressed(DownArrow);
+        internal static bool F3Pressed() => KeyPressed(F3);
+
+        private static bool KeyPressed(int keyCode)
         {
             Resolve();
             if (_getKeyDown == null) return false;
@@ -19,8 +23,8 @@ namespace MoonKing
             {
                 var parameterType = _getKeyDown.GetParameters()[0].ParameterType;
                 object key = parameterType == typeof(int)
-                    ? DownArrow
-                    : Enum.ToObject(parameterType, DownArrow);
+                    ? keyCode
+                    : Enum.ToObject(parameterType, keyCode);
                 return (bool)_getKeyDown.Invoke(null, new[] { key })!;
             }
             catch { return false; }

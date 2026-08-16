@@ -4,7 +4,7 @@ using Il2Cpp;
 using Il2Cpplibsdf_H;
 using MelonLoader;
 
-[assembly: MelonInfo(typeof(SuspendSafe.SuspendSafeMod), "SuspendSafe", "1.0.0", "local")]
+[assembly: MelonInfo(typeof(SuspendSafe.SuspendSafeMod), "SuspendSafe", "1.0.1", "local")]
 [assembly: MelonGame(null, "smt3hd")]
 
 namespace SuspendSafe
@@ -19,6 +19,7 @@ namespace SuspendSafe
         private static int _cooldown = 0;
         private static int _frameCount = 0;
         private static MelonLogger.Instance? _log;
+        private static bool _alternateBindings = false;
 
         private static bool _resolved = false;
         private static PropertyInfo? _globalDataSaveData;
@@ -27,7 +28,7 @@ namespace SuspendSafe
         public override void OnInitializeMelon()
         {
             _log = LoggerInstance;
-            LoggerInstance.Msg("SuspendSafe: Press R3 to quicksave. Resume from title screen.");
+            LoggerInstance.Msg("SuspendSafe: R3 quicksaves. F3 switches the quicksave binding to F4.");
         }
 
         private static void Resolve()
@@ -53,12 +54,22 @@ namespace SuspendSafe
         public override void OnUpdate()
         {
             _frameCount++;
+
+            if (KeyboardInput.F3Pressed())
+            {
+                _alternateBindings = !_alternateBindings;
+                LoggerInstance.Msg($"SuspendSafe: quicksave binding is now {(_alternateBindings ? "F4" : "R3")}.");
+            }
+
             if (_cooldown > 0) { _cooldown--; return; }
             if (_frameCount < 300) return;
 
             try
             {
-                if (!dds3PadManager.DDS3_PADCHECK_TRIG(SDF_PADMAP.SDF_PADMAP_R3, 0)) return;
+                bool quicksavePressed = _alternateBindings
+                    ? KeyboardInput.F4Pressed()
+                    : dds3PadManager.DDS3_PADCHECK_TRIG(SDF_PADMAP.SDF_PADMAP_R3, 0);
+                if (!quicksavePressed) return;
 
                 if (dds3SequenceList.CheckNewBattle() != 0 ||
                     dds3SequenceList.CheckTitle() != 0)

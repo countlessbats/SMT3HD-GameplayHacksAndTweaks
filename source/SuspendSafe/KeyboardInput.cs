@@ -2,17 +2,17 @@ using System;
 using System.IO;
 using System.Reflection;
 
-namespace SafePassage
+namespace SuspendSafe
 {
     internal static class KeyboardInput
     {
-        private const int UpArrow = 273;
         private const int F3 = 284;
+        private const int F4 = 285;
         private static bool _resolved;
         private static MethodInfo? _getKeyDown;
 
-        internal static bool UpArrowPressed() => KeyPressed(UpArrow);
         internal static bool F3Pressed() => KeyPressed(F3);
+        internal static bool F4Pressed() => KeyPressed(F4);
 
         private static bool KeyPressed(int keyCode)
         {
