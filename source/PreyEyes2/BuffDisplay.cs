@@ -41,6 +41,9 @@ namespace PreyEyes2
         private const float BUFF_COL_W = 55;
         private const float HEADER_H = 38;
         private const int FONT_SIZE = 15;
+        private const float REFERENCE_W = 1920f;
+        private const float REFERENCE_H = 1080f;
+        private const float DEFAULT_UI_SCALE = 2.0f;
 
         private static Type? _goType, _rtType, _imgType, _tmpType;
         private static ConstructorInfo? _goCtor;
@@ -141,6 +144,7 @@ namespace PreyEyes2
             var canvas = _addComp.MakeGenericMethod(canvasT).Invoke(_canvasGO, null);
             canvasT.GetProperty("renderMode")!.SetValue(canvas, Enum.ToObject(canvasT.GetProperty("renderMode")!.PropertyType, 0));
             canvasT.GetProperty("sortingOrder")?.SetValue(canvas, 9999);
+            ConfigureCanvasScaler();
 
             // DDOL
             try
@@ -207,7 +211,7 @@ namespace PreyEyes2
                 float x = colStartX + NAME_COL_W + c * BUFF_COL_W;
                 var hdr = MakeTextObj(textType, useTMP, $"Hdr{c}", x, headerY, BUFF_COL_W, HEADER_H, FONT_SIZE - 1, 1);
                 var st2 = textType.GetProperty("text")?.GetSetMethod();
-                st2?.Invoke(hdr, new object[] { $"<color=#AABBDD>{ColHeader[c + 1]}</color>\n<color=#7788AA><size={FONT_SIZE - 3}>{ColSub[c + 1]}</size></color>" });
+                st2?.Invoke(hdr, new object[] { $"<color=#AABBDD>{ColHeader[c + 1]}</color>\n<color=#7788AA><size={ScaledFont(FONT_SIZE - 3)}>{ColSub[c + 1]}</size></color>" });
             }
 
             // Data columns
@@ -228,6 +232,31 @@ namespace PreyEyes2
 
             _log?.Msg("=== UI Done ===");
         }
+
+        private static void ConfigureCanvasScaler()
+        {
+            try
+            {
+                var scalerType = Find("UnityEngine.UI.CanvasScaler");
+                if (scalerType == null || _canvasGO == null || _addComp == null) return;
+
+                var scaler = _addComp.MakeGenericMethod(scalerType).Invoke(_canvasGO, null);
+                if (scaler == null) return;
+
+                var scaleMode = scalerType.GetProperty("uiScaleMode");
+                scaleMode?.SetValue(scaler, Enum.ToObject(scaleMode.PropertyType, 1));
+
+                var refRes = scalerType.GetProperty("referenceResolution");
+                var v2Ctor = refRes?.PropertyType.GetConstructor(new[] { typeof(float), typeof(float) });
+                refRes?.SetValue(scaler, v2Ctor?.Invoke(new object[] { REFERENCE_W, REFERENCE_H }));
+
+                scalerType.GetProperty("matchWidthOrHeight")?.SetValue(scaler, 0.5f);
+            }
+            catch { }
+        }
+
+        private static float Scaled(float value) => value * DEFAULT_UI_SCALE;
+        private static int ScaledFont(int value) => Math.Max(1, (int)Math.Round(value * DEFAULT_UI_SCALE));
 
         private static void StealBattleFont(Type textType)
         {
@@ -560,8 +589,8 @@ namespace PreyEyes2
             rt.GetType().GetProperty("anchorMin")?.SetValue(rt, v2C.Invoke(new object[] { 0.5f, 0.5f }));
             rt.GetType().GetProperty("anchorMax")?.SetValue(rt, v2C.Invoke(new object[] { 0.5f, 0.5f }));
             rt.GetType().GetProperty("pivot")?.SetValue(rt, v2C.Invoke(new object[] { 0.5f, 0.5f }));
-            sd.SetValue(rt, v2C.Invoke(new object[] { w, h }));
-            rt.GetType().GetProperty("anchoredPosition")?.SetValue(rt, v2C.Invoke(new object[] { x, y }));
+            sd.SetValue(rt, v2C.Invoke(new object[] { Scaled(w), Scaled(h) }));
+            rt.GetType().GetProperty("anchoredPosition")?.SetValue(rt, v2C.Invoke(new object[] { Scaled(x), Scaled(y) }));
         }
 
         private static void MakeLine(string name, float w, float h, float x, float y, float r, float g, float b, float a)
@@ -582,7 +611,7 @@ namespace PreyEyes2
 
             if (useTMP)
             {
-                textType.GetProperty("fontSize")?.SetValue(text, (float)fontSize);
+                textType.GetProperty("fontSize")?.SetValue(text, (float)ScaledFont(fontSize));
                 textType.GetProperty("richText")?.SetValue(text, true);
                 textType.GetProperty("enableWordWrapping")?.SetValue(text, false);
                 textType.GetProperty("overflowMode")?.SetValue(text, 0);
@@ -602,7 +631,7 @@ namespace PreyEyes2
             }
             else
             {
-                textType.GetProperty("fontSize")?.SetValue(text, fontSize);
+                textType.GetProperty("fontSize")?.SetValue(text, ScaledFont(fontSize));
                 textType.GetProperty("supportRichText")?.SetValue(text, true);
                 var alP = textType.GetProperty("alignment");
                 if (alP != null) alP.SetValue(text, Enum.ToObject(alP.PropertyType, alignment));
@@ -627,8 +656,8 @@ namespace PreyEyes2
                         rt.GetType().GetProperty("anchorMin")?.SetValue(rt, v2C.Invoke(new object[] { 0.5f, 0.5f }));
                         rt.GetType().GetProperty("anchorMax")?.SetValue(rt, v2C.Invoke(new object[] { 0.5f, 0.5f }));
                         rt.GetType().GetProperty("pivot")?.SetValue(rt, v2C.Invoke(new object[] { 0f, 1f }));
-                        sdP!.SetValue(rt, v2C.Invoke(new object[] { w, h }));
-                        rt.GetType().GetProperty("anchoredPosition")?.SetValue(rt, v2C.Invoke(new object[] { x, y }));
+                        sdP!.SetValue(rt, v2C.Invoke(new object[] { Scaled(w), Scaled(h) }));
+                        rt.GetType().GetProperty("anchoredPosition")?.SetValue(rt, v2C.Invoke(new object[] { Scaled(x), Scaled(y) }));
                     }
                 }
             }

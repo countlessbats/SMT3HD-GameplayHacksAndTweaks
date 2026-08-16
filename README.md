@@ -2,18 +2,18 @@
 
 A pick-and-choose MelonLoader mod suite for **Shin Megami Tensei III: Nocturne HD Remaster**.
 
-The packaged installer asks about each mod independently, so players can install only the pieces they want. Version `2.3.4` replaces the old bundled Prey Eyes 2 build with current Prey Eyes 2 `2.5.5` and removes the old FPS delimiter. Use the Graphics Configurator mod for FPS unlocking instead.
+The packaged installer asks about each mod independently, so players can install only the pieces they want. Version `2.3.5` adds keyboard arrow-key alternatives for the D-pad tweaks and makes BuffView readable at modern resolutions.
 
 ## Included Mods
 
 | Mod | Function |
 | --- | --- |
-| Prey Eyes 2 | Adds a color-coded targeting reticle, affinity board, ailment resistance display, Cathedral of Shadows fusion-preview affinity display, and START-toggle BuffView. |
+| Prey Eyes 2 | Adds a color-coded targeting reticle, affinity board, ailment resistance display, Cathedral of Shadows fusion-preview affinity display, and resolution-scaled START-toggle BuffView. |
 | SuspendSafe | Press R3 to write a suspend/quicksave without returning to the title screen. |
 | KeptSuspense | Keeps a suspend save available after loading it instead of consuming it permanently. |
 | QuickPass | Adds controller shortcuts in battle: R1 passes the current demon's turn, L1 attempts escape. |
-| MoonKing | Press D-pad Down to toggle between Full Moon and New Moon. |
-| SafePassage | Press D-pad Up to toggle random encounters on and off. |
+| MoonKing | Press D-pad Down or keyboard Down Arrow to toggle between Full Moon and New Moon. |
+| SafePassage | Press D-pad Up or keyboard Up Arrow to toggle random encounters on and off. |
 | SkipIntro | Skips the Atlus logos, intro movie, and Press Start screen. |
 
 ## Install

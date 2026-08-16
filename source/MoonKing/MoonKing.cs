@@ -2,7 +2,7 @@ using Il2Cpp;
 using Il2Cpplibsdf_H;
 using MelonLoader;
 
-[assembly: MelonInfo(typeof(MoonKing.MoonKingMod), "MoonKing", "1.0.0", "local")]
+[assembly: MelonInfo(typeof(MoonKing.MoonKingMod), "MoonKing", "1.0.1", "local")]
 [assembly: MelonGame(null, "smt3hd")]
 
 namespace MoonKing
@@ -15,20 +15,25 @@ namespace MoonKing
 
         public override void OnInitializeMelon()
         {
-            LoggerInstance.Msg("MoonKing: D-pad Down toggles Full/New Moon.");
+            LoggerInstance.Msg("MoonKing: D-pad Down or Down Arrow toggles Full/New Moon.");
         }
 
         public override void OnUpdate()
         {
             _frameCount++;
+
             if (_cooldown > 0) { _cooldown--; return; }
             if (_frameCount < 300) return;
 
             try
             {
-                if (!dds3PadManager.DDS3_PADCHECK_TRIG(SDF_PADMAP.SDF_PADMAP_D, 0)) return;
-                byte analogY = dds3PadManager.GetPadAnalog(0, 0, 1, 0);
-                if (analogY > 140 || analogY < 116) return;
+                bool dPadDown = dds3PadManager.DDS3_PADCHECK_TRIG(SDF_PADMAP.SDF_PADMAP_D, 0);
+                if (dPadDown)
+                {
+                    byte analogY = dds3PadManager.GetPadAnalog(0, 0, 1, 0);
+                    dPadDown = analogY >= 116 && analogY <= 140;
+                }
+                if (!dPadDown && !KeyboardInput.DownArrowPressed()) return;
 
                 // Block in combat
                 try { if (nbMainProcess.nbGetMainProcessData() != null) return; } catch { }

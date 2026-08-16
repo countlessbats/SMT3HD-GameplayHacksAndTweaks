@@ -1,4 +1,4 @@
-SMT3HD GAMEPLAY HACKS AND TWEAKS V2.3.4
+SMT3HD GAMEPLAY HACKS AND TWEAKS V2.3.5
 for Shin Megami Tensei III: Nocturne HD Remaster
 by sevrL_bats
 
@@ -12,26 +12,22 @@ Each mod is independent. The installer asks about each one separately, so you
 can install only the pieces you want.
 
 ====================
- WHAT CHANGED IN V2.3.4
+ WHAT CHANGED IN V2.3.5
 ====================
 
-- Replaced the old bundled Prey Eyes 2 build with current Prey Eyes 2 v2.5.5.
-  This includes the current affinity board, reticle behavior, Cathedral display,
-  START-toggle BuffView, packaged icon assets, and the post-KO board visibility
-  fix.
-- Removed FramerateUnlock. Use the Graphics Configurator mod for FPS unlocking
-  instead.
-- Preserved the automated/pick-each-one installer flow.
+- Keyboard Up Arrow and Down Arrow are now additional bindings for SafePassage
+  and MoonKing. The original D-pad controls remain available.
+- BuffView is now twice as large at 1920x1080 and scales with monitor resolution.
 
 ====================
  INCLUDED MODS
 ====================
 
-PREY EYES 2 v2.5.5
+PREY EYES 2 v2.5.7
   Color-coded targeting reticle and affinity board.
   Shows ailment resistances above the board.
   Shows fusion-preview affinities in the Cathedral of Shadows.
-  Press START in battle to toggle BuffView.
+  Press START in battle to toggle the resolution-scaled BuffView.
 
 SUSPENDSAFE
   Press R3 to quicksave into the suspend slot without being kicked back to the
@@ -45,10 +41,10 @@ QUICKPASS
   L1 quick-attempts escape.
 
 MOONKING
-  D-pad Down toggles Full/New Moon phase.
+  D-pad Down or keyboard Down Arrow toggles Full/New Moon phase.
 
 SAFEPASSAGE
-  D-pad Up toggles random encounters on/off.
+  D-pad Up or keyboard Up Arrow toggles random encounters on/off.
 
 SKIPINTRO
   Skip Atlus logos, intro video, and the Press Start screen.

@@ -4,7 +4,7 @@ title sevrL_bats SMT3 HD Mod Pack Installer
 echo.
 echo  ============================================
 echo   sevrL_bats Mod Pack for SMT3 Nocturne HD
-echo   Gameplay Hacks and Tweaks V2.3.4
+echo   Gameplay Hacks and Tweaks V2.3.5
 echo  ============================================
 echo.
 
@@ -61,12 +61,12 @@ if not exist "Mods" mkdir Mods
 
 :: ── Prey Eyes 2 ──
 echo  --------------------------------------------------
-echo   PREY EYES 2 (v2.5.5)
+echo   PREY EYES 2 (v2.5.7)
 echo   Color-coded targeting reticle + affinity board.
 echo   GREEN=weak, RED=null, YELLOW=resist, ?=unknown.
 echo   Ailment resistances shown above the board.
 echo   Cathedral of Shadows fusion board included.
-echo   Press START in battle for BuffView.
+echo   Press START in battle for resolution-scaled BuffView.
 echo  --------------------------------------------------
 set /p INSTALL_PE="  Install Prey Eyes 2? (Y/N): "
 if /i "!INSTALL_PE!"=="Y" (
@@ -126,7 +126,7 @@ echo.
 :: ── MoonKing ──
 echo  --------------------------------------------------
 echo   MOONKING
-echo   D-pad Down toggles Full/New Moon phase.
+echo   D-pad Down or keyboard Down Arrow toggles moon phase.
 echo   No more waiting on mystic chests.
 echo  --------------------------------------------------
 set /p INSTALL_MK="  Install MoonKing? (Y/N): "
@@ -141,7 +141,7 @@ echo.
 :: ── SafePassage ──
 echo  --------------------------------------------------
 echo   SAFEPASSAGE
-echo   D-pad Up toggles random encounters on/off.
+echo   D-pad Up or keyboard Up Arrow toggles encounters.
 echo  --------------------------------------------------
 set /p INSTALL_SP="  Install SafePassage? (Y/N): "
 if /i "!INSTALL_SP!"=="Y" (

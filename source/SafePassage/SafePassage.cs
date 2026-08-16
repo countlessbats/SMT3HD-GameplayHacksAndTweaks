@@ -4,7 +4,7 @@ using Il2Cpp;
 using Il2Cpplibsdf_H;
 using MelonLoader;
 
-[assembly: MelonInfo(typeof(SafePassage.SafePassageMod), "SafePassage", "1.0.0", "local")]
+[assembly: MelonInfo(typeof(SafePassage.SafePassageMod), "SafePassage", "1.0.1", "local")]
 [assembly: MelonGame(null, "smt3hd")]
 
 namespace SafePassage
@@ -24,7 +24,7 @@ namespace SafePassage
 
         public override void OnInitializeMelon()
         {
-            LoggerInstance.Msg("SafePassage: D-pad Up to toggle random encounters.");
+            LoggerInstance.Msg("SafePassage: D-pad Up or Up Arrow toggles random encounters.");
         }
 
         public override void OnUpdate()
@@ -56,10 +56,13 @@ namespace SafePassage
 
             try
             {
-                // D-pad Up
-                if (!dds3PadManager.DDS3_PADCHECK_TRIG(SDF_PADMAP.SDF_PADMAP_U, 0)) return;
-                byte analogY = dds3PadManager.GetPadAnalog(0, 0, 1, 0);
-                if (analogY > 140 || analogY < 116) return;
+                bool dPadUp = dds3PadManager.DDS3_PADCHECK_TRIG(SDF_PADMAP.SDF_PADMAP_U, 0);
+                if (dPadUp)
+                {
+                    byte analogY = dds3PadManager.GetPadAnalog(0, 0, 1, 0);
+                    dPadUp = analogY >= 116 && analogY <= 140;
+                }
+                if (!dPadUp && !KeyboardInput.UpArrowPressed()) return;
 
                 // Block in combat
                 try { if (nbMainProcess.nbGetMainProcessData() != null) return; } catch { }
