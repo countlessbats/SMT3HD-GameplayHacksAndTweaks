@@ -4,7 +4,7 @@ title sevrL_bats SMT3 HD Mod Pack Installer
 echo.
 echo  ============================================
 echo   sevrL_bats Mod Pack for SMT3 Nocturne HD
-echo   Gameplay Hacks and Tweaks V2.3.6
+echo   Gameplay Hacks and Tweaks V2.3.7
 echo  ============================================
 echo.
 
@@ -62,12 +62,13 @@ if not exist "Mods" mkdir Mods
 
 :: ── Prey Eyes 2 ──
 echo  --------------------------------------------------
-echo   PREY EYES 2 (v2.5.7)
+echo   PREY EYES 2 (v2.5.8)
 echo   Color-coded targeting reticle + affinity board.
 echo   GREEN=weak, RED=null, YELLOW=resist, ?=unknown.
 echo   Ailment resistances shown above the board.
 echo   Cathedral of Shadows fusion board included.
 echo   Press START in battle for resolution-scaled BuffView.
+echo   Includes the skill-selection memory growth fix.
 echo  --------------------------------------------------
 set /p INSTALL_PE="  Install Prey Eyes 2? (Y/N): "
 if /i "!INSTALL_PE!"=="Y" (

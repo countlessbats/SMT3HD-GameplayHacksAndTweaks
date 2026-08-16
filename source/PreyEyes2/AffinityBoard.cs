@@ -56,6 +56,8 @@ namespace PreyEyes2
         // ── State ──
         private static int _posLogCount = 0;
         private static readonly bool[] _drawnThisFrame = new bool[MAX_SLOTS];
+        private static int _lastCombatCuridx = -1;
+        private static int _lastCombatDemonId = -1;
 
         // ── Layout constants ──
         private const int NUM_ELEMENTS = 7;
@@ -755,9 +757,15 @@ namespace PreyEyes2
             if (_useSmt3Style && !_boards[0].created)
                 CreateBoardForSlot(0);
 
-            UpdateBoardForEnemy(0, curidx);
-            UpdateAilmentRow(0, curidx, false, IntPtr.Zero, 0f, SMT3_FIXED_Y);
-            PositionBoard(0, 0f, SMT3_FIXED_Y);
+            int demonId = ReflectionCache.GetDemonId(curidx);
+            if (_lastCombatCuridx != curidx || _lastCombatDemonId != demonId)
+            {
+                UpdateBoardForEnemy(0, curidx);
+                UpdateAilmentRow(0, curidx, false, IntPtr.Zero, 0f, SMT3_FIXED_Y);
+                PositionBoard(0, 0f, SMT3_FIXED_Y);
+                _lastCombatCuridx = curidx;
+                _lastCombatDemonId = demonId;
+            }
             ShowBoard(0);
         }
 
@@ -788,7 +796,12 @@ namespace PreyEyes2
             }
         }
 
-        internal static void OnNoTargets() { HideAllBoards(); }
+        internal static void OnNoTargets()
+        {
+            HideAllBoards();
+            _lastCombatCuridx = -1;
+            _lastCombatDemonId = -1;
+        }
 
         // ═══════════════════════════════════════════════════
         //  CATHEDRAL OF SHADOWS
@@ -867,14 +880,9 @@ namespace PreyEyes2
         internal static void ResetForNewBattle()
         {
             HideAllBoards();
-            _initialized = false;
-            _canvasGO = null;
-            _backdropSprite = null;
-            _boards = new BoardInstance[MAX_SLOTS];
-            Array.Clear(_resultSprites, 0, _resultSprites.Length);
-            Array.Clear(_elemSprites, 0, _elemSprites.Length);
-            Array.Clear(_ailmentSprites, 0, _ailmentSprites.Length);
             Array.Clear(_drawnThisFrame, 0, MAX_SLOTS);
+            _lastCombatCuridx = -1;
+            _lastCombatDemonId = -1;
             _posLogCount = 0;
         }
 

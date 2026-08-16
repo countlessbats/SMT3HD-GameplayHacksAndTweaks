@@ -2,7 +2,7 @@
 
 A pick-and-choose MelonLoader mod suite for **Shin Megami Tensei III: Nocturne HD Remaster**.
 
-The packaged installer asks about each mod independently, so players can install only the pieces they want. Version `2.3.6` adds a conflict-free alternate controller layout, keyboard arrow-key alternatives, and a BuffView that scales cleanly at modern resolutions.
+The packaged installer asks about each mod independently, so players can install only the pieces they want. Version `2.3.7` includes Prey Eyes 2 `2.5.8`, which fixes runaway memory growth while selecting skills, alongside the alternate controller layout, keyboard arrow-key alternatives, and resolution-scaled BuffView.
 
 ## Included Mods
 

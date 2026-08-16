@@ -449,14 +449,12 @@ namespace PreyEyes2
             Array.Clear(_outlineBlack, 0, MAX_SLOTS);
             Array.Clear(_outlineWhite, 0, MAX_SLOTS);
             Array.Clear(_bordersCreated, 0, MAX_SLOTS);
-            // Reset question marks and sprites for fresh reload next battle
+            // Reticle-owned overlays are recreated with the next battle's reticle objects.
             Array.Clear(_questionGOs, 0, MAX_SLOTS);
             Array.Clear(_resultIconGOs, 0, MAX_SLOTS);
             Array.Clear(_resultIconImages, 0, MAX_SLOTS);
-            Array.Clear(_resultIconSprites, 0, _resultIconSprites.Length);
-            _resultIconSpritesLoaded = false;
-            _whiteSpriteLoaded = false;
-            _whiteSprite = null;
+            // Loaded sprites/textures are process-lifetime assets. Keep them cached instead
+            // of creating another native Texture2D/Sprite set after every battle.
             _spriteInfoLogged = false;
         }
 
