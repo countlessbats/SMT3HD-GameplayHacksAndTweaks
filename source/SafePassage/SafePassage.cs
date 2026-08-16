@@ -4,7 +4,7 @@ using Il2Cpp;
 using Il2Cpplibsdf_H;
 using MelonLoader;
 
-[assembly: MelonInfo(typeof(SafePassage.SafePassageMod), "SafePassage", "1.0.2", "local")]
+[assembly: MelonInfo(typeof(SafePassage.SafePassageMod), "SafePassage", "1.0.3", "local")]
 [assembly: MelonGame(null, "smt3hd")]
 
 namespace SafePassage
@@ -25,6 +25,7 @@ namespace SafePassage
 
         public override void OnInitializeMelon()
         {
+            L3Suppression.Init(LoggerInstance);
             LoggerInstance.Msg("SafePassage: D-pad Up or Up Arrow toggles encounters. F3 switches D-pad Up to L3.");
         }
 
@@ -35,6 +36,7 @@ namespace SafePassage
             if (KeyboardInput.F3Pressed())
             {
                 _alternateBindings = !_alternateBindings;
+                L3Suppression.AlternateMode = _alternateBindings;
                 LoggerInstance.Msg($"SafePassage: controller binding is now {(_alternateBindings ? "L3" : "D-pad Up")}; Up Arrow remains active.");
             }
 
@@ -66,7 +68,7 @@ namespace SafePassage
                 bool controllerTrigger;
                 if (_alternateBindings)
                 {
-                    controllerTrigger = dds3PadManager.DDS3_PADCHECK_TRIG(SDF_PADMAP.SDF_PADMAP_L3, 0);
+                    controllerTrigger = L3Suppression.PollL3Trigger(_frameCount);
                 }
                 else
                 {

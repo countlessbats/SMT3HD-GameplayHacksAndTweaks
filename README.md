@@ -2,7 +2,7 @@
 
 A pick-and-choose MelonLoader mod suite for **Shin Megami Tensei III: Nocturne HD Remaster**.
 
-The packaged installer asks about each mod independently, so players can install only the pieces they want. Version `2.3.7` includes Prey Eyes 2 `2.5.8`, which fixes runaway memory growth while selecting skills, alongside the alternate controller layout, keyboard arrow-key alternatives, and resolution-scaled BuffView.
+The packaged installer asks about each mod independently, so players can install only the pieces they want. Version `2.3.8` includes Prey Eyes 2 `2.5.8`, which fixes runaway memory growth while selecting skills, alongside the alternate controller layout, keyboard arrow-key alternatives, and resolution-scaled BuffView.
 
 ## Included Mods
 
@@ -16,7 +16,7 @@ The packaged installer asks about each mod independently, so players can install
 | SafePassage | Press D-pad Up or keyboard Up Arrow to toggle random encounters on and off (L3 or Up Arrow in the alternate layout). |
 | SkipIntro | Skips the Atlus logos, intro movie, and Press Start screen. |
 
-Press F3 to toggle the alternate layout: SafePassage moves from D-pad Up to L3, MoonKing moves from D-pad Down to R3, and SuspendSafe moves from R3 to F4. Press F3 again to restore the default layout. This works with any subset of the three mods; the keyboard arrow bindings remain active in both layouts, and the layout resets when the game closes.
+Press F3 to toggle the alternate layout: SafePassage moves from D-pad Up to L3, MoonKing moves from D-pad Down to R3, and SuspendSafe moves from R3 to F4. While SafePassage is installed and the alternate layout is active, L3 no longer invokes the game's screenshot UI-hide function. Press F3 again to restore the default layout and vanilla L3 behavior. This works with any subset of the three mods; the keyboard arrow bindings remain active in both layouts, and the layout resets when the game closes.
 
 ## Install
 

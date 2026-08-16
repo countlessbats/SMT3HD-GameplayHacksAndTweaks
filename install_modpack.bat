@@ -4,7 +4,7 @@ title sevrL_bats SMT3 HD Mod Pack Installer
 echo.
 echo  ============================================
 echo   sevrL_bats Mod Pack for SMT3 Nocturne HD
-echo   Gameplay Hacks and Tweaks V2.3.7
+echo   Gameplay Hacks and Tweaks V2.3.8
 echo  ============================================
 echo.
 
@@ -147,6 +147,7 @@ echo  --------------------------------------------------
 echo   SAFEPASSAGE
 echo   D-pad Up or keyboard Up Arrow toggles encounters.
 echo   Alternate F3 layout: L3 replaces D-pad Up.
+echo   In that layout, vanilla L3 screenshot UI-hide is suppressed.
 echo  --------------------------------------------------
 set /p INSTALL_SP="  Install SafePassage? (Y/N): "
 if /i "!INSTALL_SP!"=="Y" (
