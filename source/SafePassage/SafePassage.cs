@@ -4,7 +4,7 @@ using Il2Cpp;
 using Il2Cpplibsdf_H;
 using MelonLoader;
 
-[assembly: MelonInfo(typeof(SafePassage.SafePassageMod), "SafePassage", "1.0.3", "local")]
+[assembly: MelonInfo(typeof(SafePassage.SafePassageMod), "SafePassage", "1.0.5", "local")]
 [assembly: MelonGame(null, "smt3hd")]
 
 namespace SafePassage
@@ -32,6 +32,7 @@ namespace SafePassage
         public override void OnUpdate()
         {
             _frameCount++;
+            L3Suppression.Tick();
 
             if (KeyboardInput.F3Pressed())
             {
@@ -68,7 +69,7 @@ namespace SafePassage
                 bool controllerTrigger;
                 if (_alternateBindings)
                 {
-                    controllerTrigger = L3Suppression.PollL3Trigger(_frameCount);
+                    controllerTrigger = L3Suppression.PollL3Trigger();
                 }
                 else
                 {

@@ -1,4 +1,4 @@
-SMT3HD GAMEPLAY HACKS AND TWEAKS V2.3.8
+SMT3HD GAMEPLAY HACKS AND TWEAKS V2.3.9
 for Shin Megami Tensei III: Nocturne HD Remaster
 by sevrL_bats
 
@@ -12,14 +12,13 @@ Each mod is independent. The installer asks about each one separately, so you
 can install only the pieces you want.
 
 ====================
- WHAT CHANGED IN V2.3.8
+ WHAT CHANGED IN V2.3.9
 ====================
 
-- Prey Eyes 2 no longer rebuilds the affinity-board layout on every target-
-  cursor draw or recreates persistent board/sprite assets after every battle.
-  This fixes runaway RAM use, freezes, and eventual crashes during skill use.
-- While SafePassage is installed, F3 mode suppresses the vanilla L3 UI-hide
-  function so L3 only toggles encounters. Default mode restores vanilla L3.
+- SafePassage 1.0.5 fixes a launch-to-main-menu crash caused by its former
+  global native pad-check hook.
+- In F3 mode, L3 remains exclusive to SafePassage's encounter toggle and the
+  vanilla screenshot UI-hide action is restored without detouring game input.
 - The keyboard Up/Down bindings remain available in both layouts.
 - BuffView remains twice as large at 1920x1080 and scales with resolution.
 

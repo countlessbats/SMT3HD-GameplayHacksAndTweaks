@@ -4,7 +4,7 @@ title sevrL_bats SMT3 HD Mod Pack Installer
 echo.
 echo  ============================================
 echo   sevrL_bats Mod Pack for SMT3 Nocturne HD
-echo   Gameplay Hacks and Tweaks V2.3.8
+echo   Gameplay Hacks and Tweaks V2.3.9
 echo  ============================================
 echo.
 
