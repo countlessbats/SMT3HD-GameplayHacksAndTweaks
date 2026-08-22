@@ -6,7 +6,7 @@ using Il2Cpp;
 using MelonLoader;
 using MelonLoader.NativeUtils;
 
-[assembly: MelonInfo(typeof(PreyEyes2.PreyEyes2Mod), "PreyEyes2", "2.5.8", "local")]
+[assembly: MelonInfo(typeof(PreyEyes2.PreyEyes2Mod), "PreyEyes2", "2.5.9", "local")]
 [assembly: MelonGame(null, "smt3hd")]
 
 namespace PreyEyes2
@@ -31,6 +31,11 @@ namespace PreyEyes2
         private static d_CmbGetStatTarget? _delCmbGetStat;
         private static IntPtr _lastCmbStatResult = IntPtr.Zero;
         private static int _cmbStatCallFrame = -999;
+        private static int _cmbLastObservedFrame = -999;
+        private static int _cmbCandidateDemonId = -1;
+        private static int _cmbStableFrameCount = 0;
+        private const int CathedralStableFrames = 3;
+        private const int CathedralCloseGraceFrames = 3;
 
         // ── Hook: SetAnalyzePacket (Analyze/Spyglass used) ──
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -115,7 +120,7 @@ namespace PreyEyes2
                 // Register with AnyMenu (if present)
                 RegisterAnyMenu();
 
-                LoggerInstance.Msg("PreyEyes2 v2.5.8 initialized.");
+                LoggerInstance.Msg("PreyEyes2 v2.5.9 initialized.");
             }
             catch (Exception ex)
             {
@@ -315,6 +320,15 @@ namespace PreyEyes2
                     if (ReflectionCache.N_GetUnitID != null)
                         demonId = ReflectionCache.N_GetUnitID(result, ReflectionCache.Mip_GetUnitID);
 
+                    if (_cmbLastObservedFrame != _frameCount)
+                    {
+                        bool consecutive = _cmbLastObservedFrame == _frameCount - 1 &&
+                                           _cmbCandidateDemonId == demonId;
+                        _cmbStableFrameCount = consecutive ? _cmbStableFrameCount + 1 : 1;
+                        _cmbCandidateDemonId = demonId;
+                        _cmbLastObservedFrame = _frameCount;
+                    }
+
                     // Optional raw affinity scan for element-order investigation.
                     if (_diagnosticMode && demonId > 0 && demonId != _lastCathedralDemonId && _cathedralStaleCount < 30
                         && ReflectionCache.N_DatGetAisyo != null)
@@ -336,7 +350,8 @@ namespace PreyEyes2
                         MelonLogger.Msg(diag);
                     }
 
-                    if (demonId > 0 && demonId < 1000 && BoardEnabled)
+                    if (demonId > 0 && demonId < 1000 && BoardEnabled &&
+                        _cmbStableFrameCount >= CathedralStableFrames)
                         AffinityBoard.OnCathedralTarget(result);
                 }
                 catch { }
@@ -345,6 +360,9 @@ namespace PreyEyes2
             {
                 // Null result — hide instantly
                 _lastCmbStatResult = IntPtr.Zero;
+                _cmbCandidateDemonId = -1;
+                _cmbStableFrameCount = 0;
+                _cmbLastObservedFrame = -999;
                 try { AffinityBoard.OnCathedralClosed(); } catch { }
             }
 
@@ -610,8 +628,13 @@ namespace PreyEyes2
                 if (!inBattle)
                 {
                     int framesSinceHook = _frameCount - _cmbStatCallFrame;
-                    if (framesSinceHook > 1)
+                    if (framesSinceHook > CathedralCloseGraceFrames)
+                    {
                         AffinityBoard.OnCathedralClosed();
+                        _cmbCandidateDemonId = -1;
+                        _cmbStableFrameCount = 0;
+                        _cmbLastObservedFrame = -999;
+                    }
                 }
             }
             catch (Exception ex)

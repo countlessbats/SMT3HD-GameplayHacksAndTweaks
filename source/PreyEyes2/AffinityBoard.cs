@@ -27,6 +27,7 @@ namespace PreyEyes2
 
         // Pre-loaded sprites (shared across all boards)
         private static readonly object?[] _resultSprites = new object?[7];
+        private static bool _resultSpritesLoaded;
         private static readonly object?[] _elemSprites = new object?[NUM_ELEMENTS];
 
         // ── Per-enemy board pool (curidx 0-11) ──
@@ -235,29 +236,7 @@ namespace PreyEyes2
 
         private static void LoadAllSprites()
         {
-            // Load pre-tinted result icons from Mods/icons/smt3/results/
-            // These are baked with affinity colors (green weak, red null, etc.)
-            // Fallback to original opaque icons if tinted versions not found
-            string resultDir = Path.Combine(_modsDir, "icons", "smt3", "results");
-            string fallbackDir = _useSmt3Style
-                ? Path.Combine(Path.GetDirectoryName(_modsDir) ?? ".", "ui models", "affinity result icons")
-                : Path.Combine(Path.GetDirectoryName(_modsDir) ?? ".", "ui models", "affinity result icons", "transparent");
-
-            string[] resultNames = { "weak", "resist", "null", "reflect", "drain", "normal", "unknown" };
-
-            for (int i = 0; i < resultNames.Length; i++)
-            {
-                // Try pre-tinted first, fall back to originals
-                string path = Path.Combine(resultDir, resultNames[i] + ".png");
-                _resultSprites[i] = LoadSprite(path);
-                if (_resultSprites[i] == null)
-                {
-                    path = Path.Combine(fallbackDir, resultNames[i] + ".png");
-                    _resultSprites[i] = LoadSprite(path);
-                }
-                if (_resultSprites[i] != null)
-                    _log?.Msg($"AffinityBoard: Loaded {resultNames[i]}.png");
-            }
+            LoadResultSprites();
 
             // Load individual element icons (SMT3 style)
             if (_useSmt3Style)
@@ -291,17 +270,51 @@ namespace PreyEyes2
             }
         }
 
-        private static object? GetSpriteForResult(AffinityResult result) => result switch
+        private static void LoadResultSprites()
         {
-            AffinityResult.Weak => _resultSprites[0],
-            AffinityResult.Resist => _resultSprites[1],
-            AffinityResult.Null => _resultSprites[2],
-            AffinityResult.Reflect => _resultSprites[3],
-            AffinityResult.Drain => _resultSprites[4],
-            AffinityResult.Normal => _resultSprites[5],
-            AffinityResult.Unknown => _resultSprites[6],
-            _ => _resultSprites[5]
-        };
+            if (_resultSpritesLoaded) return;
+            _resultSpritesLoaded = true;
+
+            // Load pre-tinted result icons from Mods/icons/smt3/results/
+            // These are baked with affinity colors (green weak, red null, etc.)
+            // Fallback to original opaque icons if tinted versions not found
+            string resultDir = Path.Combine(_modsDir, "icons", "smt3", "results");
+            string fallbackDir = _useSmt3Style
+                ? Path.Combine(Path.GetDirectoryName(_modsDir) ?? ".", "ui models", "affinity result icons")
+                : Path.Combine(Path.GetDirectoryName(_modsDir) ?? ".", "ui models", "affinity result icons", "transparent");
+
+            string[] resultNames = { "weak", "resist", "null", "reflect", "drain", "normal", "unknown" };
+
+            for (int i = 0; i < resultNames.Length; i++)
+            {
+                // Try pre-tinted first, fall back to originals
+                string path = Path.Combine(resultDir, resultNames[i] + ".png");
+                _resultSprites[i] = LoadSprite(path);
+                if (_resultSprites[i] == null)
+                {
+                    path = Path.Combine(fallbackDir, resultNames[i] + ".png");
+                    _resultSprites[i] = LoadSprite(path);
+                }
+                if (_resultSprites[i] != null)
+                    _log?.Msg($"AffinityBoard: Loaded {resultNames[i]}.png");
+            }
+        }
+
+        private static object? GetSpriteForResult(AffinityResult result)
+        {
+            LoadResultSprites();
+            return result switch
+            {
+                AffinityResult.Weak => _resultSprites[0],
+                AffinityResult.Resist => _resultSprites[1],
+                AffinityResult.Null => _resultSprites[2],
+                AffinityResult.Reflect => _resultSprites[3],
+                AffinityResult.Drain => _resultSprites[4],
+                AffinityResult.Normal => _resultSprites[5],
+                AffinityResult.Unknown => _resultSprites[6],
+                _ => _resultSprites[5]
+            };
+        }
 
         private static int ResultIndex(AffinityResult r) => r switch
         {
@@ -880,6 +893,24 @@ namespace PreyEyes2
         internal static void ResetForNewBattle()
         {
             HideAllBoards();
+            // Result sprites are rebound to newly created battle reticles/targets. Their
+            // IL2CPP wrappers can outlive the native Texture2D after a battle scene unload,
+            // producing Unity's white fallback texture on the next bind. Drop only these
+            // re-bound assets; persistent element/backdrop/ailment sprites remain assigned.
+            for (int slot = 0; slot < MAX_SLOTS; slot++)
+            {
+                var tileImages = _boards[slot].tileImages;
+                if (tileImages != null)
+                    for (int i = 0; i < tileImages.Length; i++)
+                        try { if (tileImages[i] != null) ReflectionCache.P_Image_Sprite?.SetValue(tileImages[i], null); } catch { }
+
+                var ailmentTileImages = _boards[slot].ailmentTileImages;
+                if (ailmentTileImages != null)
+                    for (int i = 0; i < ailmentTileImages.Length; i++)
+                        try { if (ailmentTileImages[i] != null) ReflectionCache.P_Image_Sprite?.SetValue(ailmentTileImages[i], null); } catch { }
+            }
+            Array.Clear(_resultSprites, 0, _resultSprites.Length);
+            _resultSpritesLoaded = false;
             Array.Clear(_drawnThisFrame, 0, MAX_SLOTS);
             _lastCombatCuridx = -1;
             _lastCombatDemonId = -1;

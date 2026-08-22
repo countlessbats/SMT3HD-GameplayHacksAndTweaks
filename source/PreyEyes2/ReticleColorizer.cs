@@ -453,8 +453,13 @@ namespace PreyEyes2
             Array.Clear(_questionGOs, 0, MAX_SLOTS);
             Array.Clear(_resultIconGOs, 0, MAX_SLOTS);
             Array.Clear(_resultIconImages, 0, MAX_SLOTS);
-            // Loaded sprites/textures are process-lifetime assets. Keep them cached instead
-            // of creating another native Texture2D/Sprite set after every battle.
+            // These sprites are rebound to new battle-owned Images. Their managed IL2CPP
+            // wrappers can survive after the native texture is unloaded with the old scene,
+            // which makes the next battle render Unity's white fallback texture.
+            _whiteSprite = null;
+            _whiteSpriteLoaded = false;
+            Array.Clear(_resultIconSprites, 0, _resultIconSprites.Length);
+            _resultIconSpritesLoaded = false;
             _spriteInfoLogged = false;
         }
 
