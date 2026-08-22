@@ -2,7 +2,7 @@
 
 A pick-and-choose MelonLoader mod suite for **Shin Megami Tensei III: Nocturne HD Remaster**.
 
-The packaged installer asks about each mod independently, so players can install only the pieces they want. Version `2.3.10` includes Prey Eyes 2 `2.5.9`, which refreshes battle-bound icon assets between battles and stabilizes Cathedral display visibility, alongside SafePassage `1.0.5`, keyboard arrow-key alternatives, and resolution-scaled BuffView.
+The packaged installer asks about each mod independently, so players can install only the pieces they want. Version `2.3.11` includes Prey Eyes 2 `2.5.10`, which refreshes battle-bound icon assets between battles and keeps the affinity board visible on the Cathedral fusion RESULT panel, alongside SafePassage `1.0.5`, keyboard arrow-key alternatives, and resolution-scaled BuffView.
 
 ## Included Mods
 

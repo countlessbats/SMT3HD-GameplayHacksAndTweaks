@@ -6,7 +6,7 @@ using Il2Cpp;
 using MelonLoader;
 using MelonLoader.NativeUtils;
 
-[assembly: MelonInfo(typeof(PreyEyes2.PreyEyes2Mod), "PreyEyes2", "2.5.9", "local")]
+[assembly: MelonInfo(typeof(PreyEyes2.PreyEyes2Mod), "PreyEyes2", "2.5.10", "local")]
 [assembly: MelonGame(null, "smt3hd")]
 
 namespace PreyEyes2
@@ -120,7 +120,7 @@ namespace PreyEyes2
                 // Register with AnyMenu (if present)
                 RegisterAnyMenu();
 
-                LoggerInstance.Msg("PreyEyes2 v2.5.9 initialized.");
+                LoggerInstance.Msg("PreyEyes2 v2.5.10 initialized.");
             }
             catch (Exception ex)
             {
@@ -624,9 +624,15 @@ namespace PreyEyes2
                     ResetCombatTraceState();
                 }
 
-                // Cathedral: hide when cmbGetStatTarget hook stops firing.
+                // Cathedral: the RESULT screen does not call cmbGetStatTarget every
+                // frame on its own. Poll it here so the stability filter can latch
+                // a real fusion result, and so leaving the screen supplies a real
+                // null target instead of relying only on stale-hook timing.
                 if (!inBattle)
                 {
+                    try { _ = fclCombineAct.cmbGetStatTarget(); }
+                    catch { }
+
                     int framesSinceHook = _frameCount - _cmbStatCallFrame;
                     if (framesSinceHook > CathedralCloseGraceFrames)
                     {

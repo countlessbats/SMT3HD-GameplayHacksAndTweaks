@@ -1,4 +1,4 @@
-SMT3HD GAMEPLAY HACKS AND TWEAKS V2.3.10
+SMT3HD GAMEPLAY HACKS AND TWEAKS V2.3.11
 for Shin Megami Tensei III: Nocturne HD Remaster
 by sevrL_bats
 
@@ -12,19 +12,19 @@ Each mod is independent. The installer asks about each one separately, so you
 can install only the pieces you want.
 
 ====================
- WHAT CHANGED IN V2.3.10
+ WHAT CHANGED IN V2.3.11
 ====================
 
-- Prey Eyes 2.5.9 refreshes the white-reticle and affinity-result icon assets
-  between battles, preventing stale textures from becoming large white blocks.
-- The Cathedral affinity board now waits for a stable fusion-preview target,
-  preventing it from flashing over incidental menu queries.
+- Prey Eyes 2.5.10 keeps the affinity board visible on the Cathedral fusion
+  RESULT panel by polling and validating its current result target each frame.
+- White-reticle and affinity-result icon assets still refresh between battles,
+  preventing stale textures from becoming large white blocks.
 
 ====================
  INCLUDED MODS
 ====================
 
-PREY EYES 2 v2.5.9
+PREY EYES 2 v2.5.10
   Color-coded targeting reticle and affinity board.
   Shows ailment resistances above the board.
   Shows fusion-preview affinities in the Cathedral of Shadows.

@@ -4,7 +4,7 @@ title sevrL_bats SMT3 HD Mod Pack Installer
 echo.
 echo  ============================================
 echo   sevrL_bats Mod Pack for SMT3 Nocturne HD
-echo   Gameplay Hacks and Tweaks V2.3.10
+echo   Gameplay Hacks and Tweaks V2.3.11
 echo  ============================================
 echo.
 
@@ -62,7 +62,7 @@ if not exist "Mods" mkdir Mods
 
 :: ── Prey Eyes 2 ──
 echo  --------------------------------------------------
-echo   PREY EYES 2 (v2.5.9)
+echo   PREY EYES 2 (v2.5.10)
 echo   Color-coded targeting reticle + affinity board.
 echo   GREEN=weak, RED=null, YELLOW=resist, ?=unknown.
 echo   Ailment resistances shown above the board.
